@@ -2,14 +2,14 @@
 //DEPS info.picocli:picocli:4.5.0
 //DEPS org.slf4j:slf4j-nop:1.7.25
 
-//DEPS org.openrewrite:rewrite-core:7.29.0
-//DEPS org.openrewrite:rewrite-java:7.29.0
-//DEPS org.openrewrite:rewrite-java-8:7.29.0
-//DEPS org.openrewrite:rewrite-java-11:7.29.0
-//DEPS org.openrewrite:rewrite-xml:7.29.0
-//DEPS org.openrewrite:rewrite-maven:7.29.0
-//DEPS org.openrewrite:rewrite-properties:7.29.0
-//DEPS org.openrewrite:rewrite-yaml:7.29.0
+//DEPS org.openrewrite:rewrite-core:7.15.0
+//DEPS org.openrewrite:rewrite-java:7.15.0
+//DEPS org.openrewrite:rewrite-java-8:7.15.0
+//DEPS org.openrewrite:rewrite-java-11:7.15.0
+//DEPS org.openrewrite:rewrite-xml:7.15.0
+//DEPS org.openrewrite:rewrite-maven:7.15.0
+//DEPS org.openrewrite:rewrite-properties:7.15.0
+//DEPS org.openrewrite:rewrite-yaml:7.15.0
 
 
 
