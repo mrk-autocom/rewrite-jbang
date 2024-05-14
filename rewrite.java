@@ -2,14 +2,14 @@
 //DEPS info.picocli:picocli:4.5.0
 //DEPS org.slf4j:slf4j-nop:1.7.25
 
-//DEPS org.openrewrite:rewrite-core:7.14.0
-//DEPS org.openrewrite:rewrite-java:7.14.0
-//DEPS org.openrewrite:rewrite-java-8:7.14.0
-//DEPS org.openrewrite:rewrite-java-11:7.14.0
-//DEPS org.openrewrite:rewrite-xml:7.14.0
-//DEPS org.openrewrite:rewrite-maven:7.14.0
-//DEPS org.openrewrite:rewrite-properties:7.14.0
-//DEPS org.openrewrite:rewrite-yaml:7.14.0
+//DEPS org.openrewrite:rewrite-core:7.16.0
+//DEPS org.openrewrite:rewrite-java:7.16.0
+//DEPS org.openrewrite:rewrite-java-8:7.16.0
+//DEPS org.openrewrite:rewrite-java-11:7.16.0
+//DEPS org.openrewrite:rewrite-xml:7.16.0
+//DEPS org.openrewrite:rewrite-maven:7.16.0
+//DEPS org.openrewrite:rewrite-properties:7.16.0
+//DEPS org.openrewrite:rewrite-yaml:7.16.0
 
 
 
@@ -456,7 +456,7 @@ class rewrite implements Callable<Integer> {
                     assert result.getAfter() != null;
                     try (BufferedWriter sourceFileWriter = Files.newBufferedWriter(
                             results.getProjectRoot().resolve(result.getAfter().getSourcePath()))) {
-                        sourceFileWriter.write(result.getAfter().print());
+                        sourceFileWriter.write(result.getAfter().printAll());
                     }
                 }
                 for (Result result : results.deleted) {
@@ -482,7 +482,7 @@ class rewrite implements Callable<Integer> {
                     //noinspection ResultOfMethodCallIgnored
                     parentDir.mkdirs();
                     try (BufferedWriter sourceFileWriter = Files.newBufferedWriter(afterLocation)) {
-                        sourceFileWriter.write(result.getAfter().print());
+                        sourceFileWriter.write(result.getAfter().printAll());
                     }
                 }
                 for (Result result : results.refactoredInPlace) {
@@ -490,7 +490,7 @@ class rewrite implements Callable<Integer> {
                     try (BufferedWriter sourceFileWriter = Files.newBufferedWriter(
                             results.getProjectRoot().resolve(result.getBefore().getSourcePath()))) {
                         assert result.getAfter() != null;
-                        sourceFileWriter.write(result.getAfter().print());
+                        sourceFileWriter.write(result.getAfter().printAll());
                     }
                 }
             } catch (IOException e) {
