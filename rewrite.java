@@ -21,30 +21,25 @@ import static java.util.stream.Collectors.toList;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.stream.Stream;
 
+import org.apache.maven.plugin.MojoExecutionException;
 import org.openrewrite.ExecutionContext;
 import org.openrewrite.InMemoryExecutionContext;
 import org.openrewrite.Recipe;
 import org.openrewrite.Result;
 import org.openrewrite.SourceFile;
 import org.openrewrite.Validated;
-import org.openrewrite.config.Environment;
-import org.openrewrite.config.OptionDescriptor;
-import org.openrewrite.config.RecipeDescriptor;
+import org.openrewrite.config.*;
 import org.openrewrite.internal.StringUtils;
 import org.openrewrite.java.JavaParser;
 import org.openrewrite.java.JavaVisitor;
@@ -71,6 +66,9 @@ class rewrite implements Callable<Integer> {
 
     private static final String RECIPE_NOT_FOUND_EXCEPTION_MSG = "Could not find recipe '%s' among available recipes";
 
+    @Option(names = "--configFile", defaultValue = "")
+    private File rewriteConfig;
+
     @Option(names = "--recipes", split = ",")
     Set<String> activeRecipes = emptySet();
 
@@ -95,6 +93,15 @@ class rewrite implements Callable<Integer> {
     Environment environment() {
 
         Environment.Builder env = Environment.builder().scanRuntimeClasspath().scanUserHome();
+
+
+        if (rewriteConfig!= null && rewriteConfig.exists()) {
+            try (FileInputStream is = new FileInputStream(rewriteConfig)) {
+                env.load(new YamlResourceLoader(is, rewriteConfig.toURI(), new Properties()));
+            } catch (IOException e) {
+                throw new RuntimeException("Unable to load rewrite configuration", e);
+            }
+        }
 
         return env.build();
     }
@@ -258,9 +265,9 @@ class rewrite implements Callable<Integer> {
     }
 
     rewrite.ResultsContainer listResults() {
-        var env = environment();
+        Environment env = environment();
 
-        var recipe = env.activateRecipes(activeRecipes);
+        Recipe recipe = env.activateRecipes(activeRecipes);
 
         List<NamedStyles> styles;
         styles = env.activateStyles(activeStyles);
