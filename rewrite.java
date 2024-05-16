@@ -93,7 +93,7 @@ class rewrite implements Callable<Integer> {
 
         Environment.Builder env = Environment.builder().scanRuntimeClasspath().scanUserHome();
 
-
+warn("::"+rewriteConfig);
         if (rewriteConfig!= null && rewriteConfig.exists()) {
             try (FileInputStream is = new FileInputStream(rewriteConfig)) {
                 env.load(new YamlResourceLoader(is, rewriteConfig.toURI(), new Properties()));
