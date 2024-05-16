@@ -2,14 +2,14 @@
 //DEPS info.picocli:picocli:4.5.0
 //DEPS org.slf4j:slf4j-nop:1.7.25
 
-//DEPS org.openrewrite:rewrite-core:7.16.0
-//DEPS org.openrewrite:rewrite-java:7.16.0
-//DEPS org.openrewrite:rewrite-java-8:7.16.0
-//DEPS org.openrewrite:rewrite-java-11:7.16.0
-//DEPS org.openrewrite:rewrite-xml:7.16.0
-//DEPS org.openrewrite:rewrite-maven:7.16.0
-//DEPS org.openrewrite:rewrite-properties:7.16.0
-//DEPS org.openrewrite:rewrite-yaml:7.16.0
+//DEPS org.openrewrite:rewrite-core:7.16.3
+//DEPS org.openrewrite:rewrite-java:7.16.3
+//DEPS org.openrewrite:rewrite-java-8:7.16.3
+//DEPS org.openrewrite:rewrite-java-11:7.16.3
+//DEPS org.openrewrite:rewrite-xml:7.16.3
+//DEPS org.openrewrite:rewrite-maven:7.16.3
+//DEPS org.openrewrite:rewrite-properties:7.16.3
+//DEPS org.openrewrite:rewrite-yaml:7.16.3
 
 
 
@@ -93,7 +93,7 @@ class rewrite implements Callable<Integer> {
 
         Environment.Builder env = Environment.builder().scanRuntimeClasspath().scanUserHome();
 
-warn(":::"+rewriteConfig);
+warn("::::"+rewriteConfig);
         if (rewriteConfig!= null && rewriteConfig.exists()) {
             try (FileInputStream is = new FileInputStream(rewriteConfig)) {
                 warn("Loading ::"+rewriteConfig);
